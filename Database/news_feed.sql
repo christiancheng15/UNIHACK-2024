@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2024 at 01:41 PM
+-- Generation Time: Mar 01, 2024 at 02:03 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.0.30
 
@@ -32,7 +32,8 @@ CREATE TABLE `news_feed` (
   `author` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
-  `summarised_article` varchar(1024) COLLATE utf8mb4_general_ci NOT NULL
+  `summarised_article` varchar(1024) COLLATE utf8mb4_general_ci NOT NULL,
+  `image_src` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
