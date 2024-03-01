@@ -3,6 +3,8 @@ import requests
 from datetime import datetime
 import json
 
+API_KEY = "pub_3920552a9be4849fd501b6c71e23e65a1d060"
+
 def timestamp() -> str:
     return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
@@ -17,7 +19,7 @@ def get_news_data(category: str, save: bool = True):
         "category": category,
     }
 
-    response = requests.get("https://newsdata.io/api/1/news?apikey=pub_3920552a9be4849fd501b6c71e23e65a1d060", params=params).json()
+    response = requests.get(f"https://newsdata.io/api/1/news?apikey={API_KEY}", params=params).json()
 
     filename = f"response_{timestamp()}.json"
 
