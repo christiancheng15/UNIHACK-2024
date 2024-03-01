@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2024 at 02:03 PM
+-- Generation Time: Mar 01, 2024 at 09:44 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.0.30
 
@@ -29,11 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `news_feed` (
   `id` int NOT NULL,
-  `author` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `link` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `summarised_text` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
-  `summarised_article` varchar(1024) COLLATE utf8mb4_general_ci NOT NULL,
-  `image_src` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `image_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `source_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `source_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `source_icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `category` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `languages` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
