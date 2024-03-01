@@ -89,15 +89,20 @@ if __name__ == "__main__":
             
             for result in data["results"]:
                 text = get_fulltext(result["link"])
+                logging(f"Text extracted successfully")
                 summarised_text = summarise_text(text)
-        
+                logging(f"Text summarised successfully")
+
+                logging(f"Adding data to MySQL")
                 try:
                     with connection.cursor() as cursor:
                         sql = "INSERT INTO news_feed (title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
                         data_to_insert = (result["title"], result["link"], result["creator"], summarised_text, result["pubDate"], result["image_url"], result["source_id"], result["source_url"], result["source_icon"], result["country"][0], result["category"])
                         cursor.execute(sql, data_to_insert)
                     connection.commit()
+                    logging(f"Data added to MySQL successfully")
                 except:
                     continue
         finally:
+            logging(f"All data added to MySQL. Closing connection.")
             connection.close()
