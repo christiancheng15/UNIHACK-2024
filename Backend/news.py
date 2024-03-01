@@ -2,8 +2,12 @@ from newspaper import fulltext
 import requests
 from datetime import datetime
 import json
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
+import MySQLdb
 
-API_KEY = "pub_3920552a9be4849fd501b6c71e23e65a1d060"
+load_dotenv()
 
 def timestamp() -> str:
     return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -11,15 +15,14 @@ def timestamp() -> str:
 def logging(message: str):
     print(f"[{timestamp()}] {message}")
 
-def get_news_data(category: str, save: bool = True):
-    assert category in ['top', 'sports', 'technology', 'business', 'science', 'entertainment', 'health', 'world', 'politics', 'environment', 'food']
+def get_news_data(category: str, save: bool = True) -> dict:
 
     params = {
         "country": "au",
         "category": category,
     }
 
-    response = requests.get(f"https://newsdata.io/api/1/news?apikey={API_KEY}", params=params).json()
+    response = requests.get(f"https://newsdata.io/api/1/news?apikey={os.getenv("NEWS_DATA_IO_API_KEY")}", params=params).json()
 
     filename = f"response_{timestamp()}.json"
 
@@ -28,6 +31,8 @@ def get_news_data(category: str, save: bool = True):
             json.dump(response, json_file, indent=4)
     
     logging(f"{filename} saved successfully as JSON")
+
+    return data
 
 def load_news_data(filename: str) -> dict:
     try:
@@ -51,18 +56,53 @@ def get_fulltext(link: str) -> str:
 
     return text
 
+def summarise_text(text: str) -> str:
+
+    client = OpenAI(
+        api_key = os.getenv("OPENAI_API_KEY"),
+    )
+
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo-1106",
+        messages=[
+            {"role": "system", "content": "You are a dot point assistant, you are skilled in summarising given texts to 5 dot points of 10 words or less. Keep the language easy to understand yet concise. Add your own creative flair."},
+            {"role": "user", "content": text}
+        ]
+    )
+
+    return completion.choices[0].message.content
+
 if __name__ == "__main__":
-    data = load_news_data("response_2024-03-01_22-58-09.json")
 
-    logging(f"Total Results: {data["totalResults"]}")
+    categories = ['top', 'sports', 'technology', 'business', 'science', 'entertainment', 'health', 'world', 'politics', 'environment', 'food']
 
-    results = data["results"]
+    connection = MySQLdb.connect(host=os.getenv("DB_HOST"),
+                             user=os.getenv("DB_USER"),
+                             password=os.getenv("DB_PASS"),
+                             database=os.getenv("DB_DATABASE"))
 
-    sample_result = results[0]
+    for category in categories:
+        try:
+            data = get_news_data(category, save=False)
 
-    print(sample_result)
+            logging(f"Category: {category} | Total Results: {data["totalResults"]}")
+            
+            for result in data["results"]:
+                text = get_fulltext(result["link"])
+                logging(f"Text extracted successfully")
+                summarised_text = summarise_text(text)
+                logging(f"Text summarised successfully")
 
-    text = get_fulltext(sample_result["link"])
-
-    if text:
-        print(text)
+                logging(f"Adding data to MySQL")
+                try:
+                    with connection.cursor() as cursor:
+                        sql = "INSERT INTO news_feed (title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                        data_to_insert = (result["title"], result["link"], result["creator"], summarised_text, result["pubDate"], result["image_url"], result["source_id"], result["source_url"], result["source_icon"], result["country"][0], result["category"])
+                        cursor.execute(sql, data_to_insert)
+                    connection.commit()
+                    logging(f"Data added to MySQL successfully")
+                except:
+                    continue
+        finally:
+            logging(f"All data added to MySQL. Closing connection.")
+            connection.close()
