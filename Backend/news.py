@@ -8,8 +8,8 @@ API_KEY = "pub_3920552a9be4849fd501b6c71e23e65a1d060"
 def timestamp() -> str:
     return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-def logging(message: str) -> str:
-    return f"[{timestamp()}] {message}"
+def logging(message: str):
+    print(f"[{timestamp()}] {message}")
 
 def get_news_data(category: str, save: bool = True):
     assert category in ['top', 'sports', 'technology', 'business', 'science', 'entertainment', 'health', 'world', 'politics', 'environment', 'food']
