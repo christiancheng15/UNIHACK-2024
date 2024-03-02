@@ -1,7 +1,0 @@
-{
-    "status": "error",
-    "results": {
-        "message": "API key is invalid",
-        "code": "Unauthorized"
-    }
-}

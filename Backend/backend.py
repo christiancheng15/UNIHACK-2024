@@ -14,7 +14,7 @@ def format_date(date):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
@@ -37,7 +37,7 @@ async def get_data(page: int = Query(1)):
                 "title": row[0],
                 "link": row[1],
                 "author": row[2],
-                "summarised_text": row[3].replace("- ", "").split("\n"),
+                "summarised_text": row[3].replace("- ", "").split("\n")[:5],
                 "date": format_date(row[4]),
                 "image_url": row[5],
                 "source_id": row[6],
