@@ -2,15 +2,12 @@ import { MdLogout, MdSave } from "react-icons/md";
 import Button, { BUTTON_TYPES } from "../../components/input/Button";
 import { validCategories } from "../../util/constants";
 import TemplatePage from "../template/TemplatePage";
-//import { useAPIContext } from "../../contexts/useAPIContext";
-//import { useGlobalContext } from "../../contexts/useGlobalContext";
-
-const topics = ['top', 'sports', 'technology', 'business', 'science', 'entertainment', 'health', 'world', 'politics', 'environment', 'food']
+import { useGlobalContext } from "../../contexts/useGlobalContext";
+import { ColorModes } from "../../util/styles";
+import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
 
 export default function PageSettings() {
-    //const api = useAPIContext()
-    //const { setModal } = useGlobalContext()
-
+    const { toggleColorMode, colorMode } = useGlobalContext() as { colorMode: ColorModes, toggleColorMode: () => void }
 
     return (
         <TemplatePage
@@ -35,6 +32,19 @@ export default function PageSettings() {
                         className={"w-full mt-4"}
                         text={"Save"}
                         icon={MdSave}
+                        type={BUTTON_TYPES.normal}
+                        color={"primaryColor"}
+                    />
+                </div>
+
+
+                <div className="container2 verticalContainer !items-start w-full">
+                    <h2>Appearance</h2>
+                    <Button
+                        onClick={toggleColorMode}
+                        className={"w-full mt-4"}
+                        text={"Change color theme"}
+                        icon={colorMode === ColorModes.light ? RiSunFill : RiMoonClearFill}
                         type={BUTTON_TYPES.normal}
                         color={"primaryColor"}
                     />

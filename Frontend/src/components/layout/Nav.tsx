@@ -9,13 +9,10 @@ import Image from "../general/Image";
 import { NAV_ITEMS } from "../../navigation/navigation";
 import INavItem from "../../navigation/INavItem";
 import { MdPerson } from "react-icons/md";
-//import { useAPIContext } from "../../contexts/useAPIContext";
-
 
 export default function Nav() {
-    //const api = useAPIContext()
 
-    const { isMobile, setModal, removeModal, selectedNavItem, setSelectedNavItem } = useGlobalContext()
+    const { isMobile, setModal, selectedNavItem, setSelectedNavItem } = useGlobalContext()
 
 
     function handleClickBars() {
@@ -38,13 +35,9 @@ export default function Nav() {
 
                 </div>
 
-                <Link to='/'>
-                    <Image
-                        className="h-8 !bg-transparent"
-                        src={Logo}
-                        disableLoadingSpinner={true}
-                        disableAnimation={true}
-                    />
+                <Link className="text-4xl italic text-[var(--textColor)]" to='/'>
+                    Gist
+
                 </Link>
 
 
@@ -99,7 +92,7 @@ export default function Nav() {
 
 
 function NavMenu(): JSX.Element {
-    const { isLoggedIn, removeModal } = useGlobalContext()
+    const { removeModal, setSelectedNavItem } = useGlobalContext()
     const navigate = useNavigate()
 
     function handleClickHome() {
@@ -110,24 +103,14 @@ function NavMenu(): JSX.Element {
     const titleElement = (
         <Button
             onClick={handleClickHome}
-            element={
-                <Image
-                    className="h-8 !bg-transparent"
-                    //src={Logo}
-                    disableLoadingSpinner={true}
-                    disableAnimation={true}
-                />
-            }
+            text={"Gist"}
             type={BUTTON_TYPES.none}
-
+            className=" px-2 text-4xl italic !text-[var(--textColor)]"
+            textColor={"textColor"}
 
         />
     )
 
-    function handleClickRead() {
-        navigate('/app/read')
-        removeModal()
-    }
 
     return (
         <BaseSideMenu
@@ -136,17 +119,27 @@ function NavMenu(): JSX.Element {
 
             <div className="relative h-full w-full verticalContainer">
                 <div className="verticalContainer h-full w-full overflow-x-auto !items-start p-4">
+                    {
+                        NAV_ITEMS.map((item: INavItem, i: number) => (
+                            <Link to={item.path} className="w-full" key={i}>
+                                <Button
+                                    onClick={() => {
+                                        navigate(item.path)
+                                        setSelectedNavItem(item)
+                                        removeModal()
 
-                    <button
-                        onClick={handleClickRead}
-                        className="pNavButton">
-                        Contact
-                    </button>
+                                    }}
+                                    className={`!gap-4 !justify-start !pr-16 hover:bg-[var(--backgroundColor5)]`}
+                                    type={BUTTON_TYPES.normal}
+                                    text={item.text}
+                                    fullWidth={true}
+                                    icon={item.icon}
+                                    color={"paperColor"}
+                                />
+                            </Link>
+                        ))
+                    }
 
-                </div>
-
-                <div className="horizontalContainer w-full justify-center !gap-8 px-2 pb-2">
-                    <FaFacebook size={CONSTANTS.sizes.icon.xl} /><FaInstagram size={CONSTANTS.sizes.icon.xl} /><FaYoutube size={CONSTANTS.sizes.icon.xl} />
                 </div>
 
             </div>

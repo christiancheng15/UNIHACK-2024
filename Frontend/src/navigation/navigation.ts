@@ -4,7 +4,7 @@ import INavItem from "./INavItem";
 export const NAV_ITEMS: INavItem[] = [
     {
         text: "Explore",
-        path: "/app/explore",
+        path: "/",
         icon: MdExplore
     },
     {

@@ -18,14 +18,14 @@ export const GLOBAL_STYLES: IGlobalStyles = {
         "backgroundColor1": "#f5f5f5",
         "backgroundColor2": "#e8e8e8",
         "backgroundColor3": "#d9d9d9",
-        "backgroundColor4": "#b8b8b8",
+        "backgroundColor4": "#e9e9e9",
         "backgroundColor5": "#909090",
         "backgroundColor8": "#757575",
         "textColorLight": "#656464",
         "textColorLight2": "#707070",
         "textColor": "#000",
         "textColorInverted": "#fff",
-        "paperColor": "#fff",
+        "paperColor": "#f5f5f5",
         "white": "#fff",
         "secondaryColorVeryLight": "#fff0cb",
         "secondaryColor": "#000",
@@ -35,6 +35,7 @@ export const GLOBAL_STYLES: IGlobalStyles = {
         "successColor": "#43a047",
         "onlineColor": "#00ec00",
         "errorColor": "#ff3030",
+        "warningColor": "#ca8a04"
 
     },
     dark: {
@@ -53,7 +54,7 @@ export const GLOBAL_STYLES: IGlobalStyles = {
         "textColorLight2": "#858585",
         "textColor": "#fff",
         "textColorInverted": "#000",
-        "paperColor": "#1e1e1e",
+        "paperColor": "#333",
         "white": "#121212",
         "secondaryColorVeryLight": "#4f4f4f",
         "secondaryColor": "#fff",
@@ -63,6 +64,7 @@ export const GLOBAL_STYLES: IGlobalStyles = {
         "successColor": "#4caf50",
         "onlineColor": "#00cc00",
         "errorColor": "#ff5555",
+        "warningColor": "#facc15"
 
     }
 }
