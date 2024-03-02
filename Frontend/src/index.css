@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html,
+#root,
+body {
+  height: 100%;
+  display: flex;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+html,
+#root {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  @apply overflow-y-auto;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--backgroundColor1);
+  position: absolute;
+  @apply overflow-y-auto;
+
+}
+
+
+* {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+  
+}
+
+
+
+
+.button {
+  @apply shadow-md transition-all flex flex-row gap-1 justify-center items-center text-white disabled:cursor-not-allowed disabled:brightness-75 hover:brightness-95 text-lg;
+  transition: all 0.125s;
+  outline: none !important;
+}
+
+.buttonCircle {
+  @apply rounded-full p-2 shadow-md;
+}
+
+.buttonRounded2 {
+  @apply rounded-lg p-[0.333rem] shadow-md;
+
+}
+
+.buttonRounded {
+  @apply rounded-full p-[0.333rem] shadow-md;
+}
+
+.normalButton {
+  @apply px-4 py-2 gap-2;
+}
+
+
+.smallButton {
+  @apply !px-2 !py-1;
+}
+
+.horizontalContainer {
+  @apply flex flex-row gap-3 items-center;
+}
+
+.verticalContainer {
+  @apply flex flex-col gap-3 items-center;
+}
+
+h1 {
+  @apply !text-4xl !font-semibold text-[var(--primaryColor)];
+}
+
+h2 {
+  @apply !text-2xl !font-semibold text-[var(--primaryColorLight)];
+}
+
+ol,
+ul,
+menu {
+  margin: unset;
+  padding: unset;
+  margin-left: 1.25rem;
+  list-style: unset;
+  @apply text-[var(--textColor)] flex flex-col gap-3;
+}
+
+p, li {
+  @apply text-lg;
+}
+
+.container2 {
+  @apply shadow-md rounded-lg bg-[var(--backgroundColor4)] px-4 py-3 flex flex-col gap-2;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea {
+  @apply rounded-lg !px-4 !py-2 transition-all text-[var(--textColor)];
+}
+
+label {
+  @apply px-2 !py-2 text-lg transition-all text-[var(--textColor)];
+}

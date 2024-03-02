@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        @media (prefers-color-scheme:dark) {
+            .white {
+                background-color: #000;
+            }
+
+            h1,
+            h2 {
+                color: white;
+            }
+        }
+
+        @media (prefers-color-scheme:light) {
+            .white {
+                background-color: #fff;
+            }
+
+            h1,
+            h2 {
+                color: black;
+            }
+        }
+
+
+
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        * {
+            font-family: 'Open Sans';
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enable JavaScript</title>
+</head>
+
+<body class="white">
+    <div id="root"
+        style="display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: column;">
+        <h1>Please enable JavaScript to continue</h1>
+        <h2>Enabled JavaScript? <a href="/">Click to go to home</a></h2>
+    </div>
+    <script>
+        window.location.assign('/')
+    </script>
+</body>
+
+</html>

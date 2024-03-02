@@ -1,0 +1,26 @@
+export interface IAPIRequest {
+    method: string,
+    endpoint: string,
+    data?: any,
+    params?: any,
+    showSuccessModal?: boolean | null,
+    validationFunction?: ((data: any) => IApiResponse) | null,
+    onError?: ((data: any) => any) | null,
+    disableErrorDialog?: boolean | null,
+}
+
+export interface IApiRequestProps {
+    showSuccessModal?: boolean | null,
+    disableErrorDialog?: boolean | null | undefined,
+}
+
+export interface IApiResponse {
+    status: boolean,
+    message?: string | null,
+    content?: any | null,
+    error?: IError[]
+}
+
+export default interface IError {
+    msg: string
+}
