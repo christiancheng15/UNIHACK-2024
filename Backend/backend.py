@@ -36,7 +36,7 @@ async def get_data(page: int = Query(1)):
                 "language": row[11]
             })
         
-        return json.dumps(data)
+        return data
     
     except Exception as e:
         return {"error": str(e)}
