@@ -14,7 +14,7 @@ def format_date(date):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
@@ -27,7 +27,7 @@ cursor = db.cursor()
 async def get_data(page: int = Query(1)):
     try:
         offset = (page - 1) * 10
-        cursor.execute(f"SELECT title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language FROM news_feed LIMIT {offset}, 10")
+        cursor.execute(f"SELECT title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language, id FROM news_feed LIMIT {offset}, 10")
         
         rows = cursor.fetchall()
 
@@ -45,7 +45,8 @@ async def get_data(page: int = Query(1)):
                 "source_icon": row[8],
                 "country": row[9],
                 "category": row[10],
-                "language": row[11]
+                "language": row[11],
+                "id": row[12]
             })
         
         return data
