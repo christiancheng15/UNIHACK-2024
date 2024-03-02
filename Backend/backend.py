@@ -1,13 +1,16 @@
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import MySQLdb
-import json
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
 app = FastAPI()
+
+def format_date(date):
+    return str(date.strftime("%d %B %Y"))
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,8 +37,8 @@ async def get_data(page: int = Query(1)):
                 "title": row[0],
                 "link": row[1],
                 "author": row[2],
-                "summarised_text": row[3].replace("- ", ""),
-                "date": str(row[4]),
+                "summarised_text": row[3].replace("- ", "").split("\n"),
+                "date": format_date(row[4]),
                 "image_url": row[5],
                 "source_id": row[6],
                 "source_url": row[7],
