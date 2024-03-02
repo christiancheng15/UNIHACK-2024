@@ -34,7 +34,7 @@ async def get_data(page: int = Query(1)):
                 "title": row[0],
                 "link": row[1],
                 "author": row[2],
-                "summarised_text": row[3],
+                "summarised_text": row[3].replace("- ", ""),
                 "date": str(row[4]),
                 "image_url": row[5],
                 "source_id": row[6],
