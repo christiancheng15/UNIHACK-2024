@@ -8,6 +8,7 @@ import Page404 from './pages/Page404'
 import PageHome from './pages/PageHome'
 import PageSettings from './pages/account/PageSettings'
 import PageExplore from './pages/PageExplore'
+import PageSavedArticles from './pages/PageSavedArticles'
 
 function App() {
 
@@ -76,8 +77,9 @@ function App() {
         <Routes>
 
 
-          <Route path="/" element={<PageHome />} />
+          <Route path="/" element={<PageExplore />} />
           <Route path="/app/explore" element={<PageExplore />} />
+          <Route path="/app/saved" element={<PageSavedArticles />} />
           <Route path="/app/account/settings" element={<PageSettings />} />
 
           <Route path="*" element={<Page404 />} />

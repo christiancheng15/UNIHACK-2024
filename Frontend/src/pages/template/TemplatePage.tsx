@@ -68,7 +68,7 @@ export default function TemplatePage(
                         <Nav />
                     )
                 }
-                <div id="mainPage" className={`w-full h-full overflow-y-auto ${disablePadding ? "" : "p-4"} ${className ? className : ""} flex flex-col gap-4 relative dark:!bg-[var(--white)]`}>
+                <div id="mainPage" className={`w-full h-full overflow-y-auto ${disablePadding ? "" : "p-4"} ${className ? className : ""} flex lg:mt-0 mt-16 flex-col gap-4 relative dark:!bg-[var(--white)]`}>
                     <div style={height ? { height: height } : undefined} className={`w-full ${!disableWhitespace ? "lg:w-[50%] lg:mx-auto" : ""} flex flex-col gap-4`}>
                         {
                             title || subtitle || onBack || rightButton ? (

@@ -4,6 +4,7 @@ import { capitaliseFirstLetter } from "../../util/util";
 import Image from "../general/Image";
 import Button, { BUTTON_TYPES } from "../input/Button";
 import { MdOpenInNew, MdShare, MdStar, MdThumbUp } from "react-icons/md";
+import { useAPIContext } from "../../contexts/useAPIContext";
 
 
 interface ILargeArticle {
@@ -13,6 +14,8 @@ interface ILargeArticle {
 export default function LargeArticle({
     article,
 }: ILargeArticle) {
+    const api = useAPIContext()
+
     const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
     const dateString = article.date.toLocaleDateString('en-US', options)
     const category = capitaliseFirstLetter(article.category)
@@ -92,22 +95,25 @@ export default function LargeArticle({
             </Link>
 
 
-            <div className="w-full h-16 bg-[var(--backgroundColor8)] self-end horizontalContainer !justify-evenly mt-auto">
+            <div className="w-full h-16 bg-[var(--backgroundColor4)] self-end horizontalContainer !justify-evenly mt-auto">
                 <Button
                     type={BUTTON_TYPES.transparent}
                     text={"Like"}
+                    className={"font-bold"}
                     icon={MdThumbUp}
                 />
                 <Button
-                    disableBorder={true}
+                    onClick={() => article?.isSaved ? api.unsaveArticle(article) : api.saveArticle(article)}
                     type={BUTTON_TYPES.transparent}
-                    text={"Save"}
+                    text={article?.isSaved ? "Saved" : "Save"}
+                    className={"font-bold"}
                     icon={MdStar}
+                    textColor={article?.isSaved ? "warningColor" : undefined}
                 />
                 <Button
-                    disableBorder={true}
                     type={BUTTON_TYPES.transparent}
                     text={"Share"}
+                    className={"font-bold"}
                     icon={MdShare}
                 />
             </div>

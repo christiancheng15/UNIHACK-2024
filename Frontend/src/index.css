@@ -37,14 +37,15 @@ body {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 250ms;
-  
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 
 
 
 .button {
-  @apply shadow-md transition-all flex flex-row gap-1 justify-center items-center text-white disabled:cursor-not-allowed disabled:brightness-75 hover:brightness-95 text-lg;
+  @apply !cursor-pointer shadow-md transition-all flex flex-row gap-1 justify-center items-center text-white disabled:cursor-not-allowed disabled:brightness-75 hover:brightness-95 text-lg;
   transition: all 0.125s;
   outline: none !important;
 }
@@ -64,6 +65,10 @@ body {
 
 .normalButton {
   @apply px-4 py-2 gap-2;
+}
+
+.chipStyle1 {
+  @apply rounded-lg px-2 gap-1 py-1 flex flex-row items-center justify-center text-center select-none;
 }
 
 
@@ -97,12 +102,33 @@ menu {
   @apply text-[var(--textColor)] flex flex-col gap-3;
 }
 
-p, li {
-  @apply text-lg;
+@keyframes popRight {
+  from {
+    @apply -ml-[500%] lg:-ml-[100%];
+  }
+
+  to {
+    margin-top: 0;
+  }
+}
+
+@keyframes popLeft {
+  from {
+    margin-top: 0;
+  }
+
+  to {
+    @apply -ml-[500%] lg:-ml-[100%];
+  }
+}
+
+p,
+li {
+  @apply text-lg text-[var(--textColor)];
 }
 
 .container2 {
-  @apply shadow-md rounded-lg bg-[var(--backgroundColor4)] px-4 py-3 flex flex-col gap-2;
+  @apply shadow-md rounded-lg bg-[var(--paperColor)] px-4 py-3 flex flex-col gap-2;
 }
 
 input[type="text"],
@@ -115,4 +141,13 @@ textarea {
 
 label {
   @apply px-2 !py-2 text-lg transition-all text-[var(--textColor)];
+}
+
+.inputStyle1 {
+  @apply bg-[var(--backgroundColor2)] hover:bg-[var(--backgroundColor3)] !outline-none border border-slate-300 dark:border-gray-600;
+}
+
+.inputStyle1:focus {
+  outline: 1px solid var(--paperColor) !important;
+  @apply bg-[var(--backgroundColor5)];
 }

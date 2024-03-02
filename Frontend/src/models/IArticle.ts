@@ -1,4 +1,5 @@
 export default interface IArticle {
+    id: number,
     title: string,
     link: string,
     author?: string | undefined,
@@ -8,5 +9,6 @@ export default interface IArticle {
     source_id: number,
     source_url: string,
     source_icon: string,
-    category: string
+    category: string,
+    isSaved?: boolean | undefined
 }

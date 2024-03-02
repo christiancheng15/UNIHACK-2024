@@ -1,10 +1,9 @@
 import { ChangeEventHandler, useState } from "react"
 import { FaEye, FaEyeSlash } from "react-icons/fa6"
-import Button from "./Button"
-import { BUTTON_TYPES } from "../../util/constants"
+import Button, { BUTTON_TYPES } from "./Button"
 
 interface IInputBox {
-    text: string,
+    text?: string | null,
     id?: string | null,
     value: any,
     onChange?: ChangeEventHandler<any> | null,
@@ -18,11 +17,13 @@ interface IInputBox {
     max?: number | null,
     step?: number | null,
     fullWidth?: boolean | null,
-    rows?: number | null
+    rows?: number | null,
+    className?: string | null
 }
 
 export default function InputBox({
     text,
+    className,
     placeholder,
     id,
     value,
@@ -56,8 +57,13 @@ export default function InputBox({
     }
 
     return (
-        <div style={{ width: fullWidth ? "100%" : undefined }} className={`inputContainer_text1 ${1 === 1 && "!flex lg:flex-row flex-col lg:!items-center !items-start gap-2 w-full justify-between"}`}>
-            <label style={type === 'textarea' ? { alignSelf: "start" } : undefined} htmlFor={id ?? undefined}>{text}:</label>
+        <div style={{ width: fullWidth ? "100%" : undefined }} className={`inputContainer_text1 ${1 === 1 && "!flex lg:flex-row flex-col lg:!items-center !items-start gap-2 w-full justify-between"} ${className ? className : ""}`}>
+            {
+                text && (
+                    <label style={type === 'textarea' ? { alignSelf: "start" } : undefined} htmlFor={id ?? undefined}>{text}:</label>
+                )
+            }
+
             {
                 type === 'password' ? (
                     <div className="w-full lg:basis-[60%] relative">
@@ -69,7 +75,7 @@ export default function InputBox({
                             placeholder={placeholder ?? undefined}
                             value={value}
                             onChange={onChange as ChangeEventHandler<HTMLInputElement> ?? undefined}
-                            className="inputStyle1 w-full lg:basis-[60%]"
+                            className={`inputStyle1 w-full ${fullWidth ? "" : "lg:basis-[60%]"}`}
                             type={passwordVisible ? 'text' : 'password'}
                             name={id ?? undefined}
                             id={id ?? undefined}
@@ -104,7 +110,7 @@ export default function InputBox({
                             placeholder={placeholder ?? undefined}
                             value={value}
                             onChange={onChange as ChangeEventHandler<HTMLInputElement> ?? undefined}
-                            className="inputStyle1 w-full lg:basis-[60%] relative"
+                            className={`inputStyle1 w-full ${fullWidth ? "" : "lg:basis-[60%]"} relative`}
                             type={type}
                             name={id ?? undefined}
                             id={id ?? undefined}
@@ -122,7 +128,7 @@ export default function InputBox({
                             placeholder={placeholder ?? undefined}
                             value={value}
                             onChange={onChange as ChangeEventHandler<HTMLTextAreaElement> ?? undefined}
-                            className="inputStyle1 w-full lg:basis-[60%]"
+                            className={`inputStyle1 w-full ${fullWidth ? "" : "lg:basis-[60%]"}`}
                             id={id ?? undefined}
                             rows={rows ?? undefined}
                         />
