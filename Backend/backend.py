@@ -24,7 +24,7 @@ cursor = db.cursor()
 async def get_data(page: int = Query(1)):
     try:
         offset = (page - 1) * 10
-        cursor.execute(f"SELECT title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language FROM news_feed LIMIT {offset}, {page * 10}")
+        cursor.execute(f"SELECT title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language FROM news_feed LIMIT {offset}, 10")
         
         rows = cursor.fetchall()
 
