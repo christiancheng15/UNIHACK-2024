@@ -15,7 +15,7 @@ def timestamp() -> str:
 def logging(message: str):
     print(f"[{timestamp()}] {message}")
 
-def get_news_data(category: str, save: bool = True) -> dict:
+def get_news_data(category: str, save: bool = True):
 
     params = {
         "country": "au",
@@ -30,9 +30,9 @@ def get_news_data(category: str, save: bool = True) -> dict:
         with open(filename, 'w') as json_file:
             json.dump(response, json_file, indent=4)
     
-    logging(f"{filename} saved successfully as JSON")
+        logging(f"{filename} saved successfully as JSON")
 
-    return data
+    return response
 
 def load_news_data(filename: str) -> dict:
     try:
@@ -93,16 +93,19 @@ if __name__ == "__main__":
                 summarised_text = summarise_text(text)
                 logging(f"Text summarised successfully")
 
+                if len(result["creator"]) > 1:
+                    creator_string = ", ".join(result["creator"])
+                else:
+                    creator_string = result["creator"][0]
+
                 logging(f"Adding data to MySQL")
-                try:
-                    with connection.cursor() as cursor:
-                        sql = "INSERT INTO news_feed (title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-                        data_to_insert = (result["title"], result["link"], result["creator"], summarised_text, result["pubDate"], result["image_url"], result["source_id"], result["source_url"], result["source_icon"], result["country"][0], result["category"])
-                        cursor.execute(sql, data_to_insert)
-                    connection.commit()
-                    logging(f"Data added to MySQL successfully")
-                except:
-                    continue
+                with connection.cursor() as cursor:
+                    sql = "INSERT INTO news_feed (title, link, author, summarised_text, date, image_url, source_id, source_url, source_icon, country, category, language) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    data_to_insert = (result["title"], result["link"], creator_string, summarised_text, result["pubDate"], result["image_url"], result["source_id"], result["source_url"], result["source_icon"], result["country"][0], result["category"], result["language"])
+                    cursor.execute(sql, data_to_insert)
+                connection.commit()
+                logging(f"Data added to MySQL successfully")
+
         finally:
             logging(f"All data added to MySQL. Closing connection.")
             connection.close()

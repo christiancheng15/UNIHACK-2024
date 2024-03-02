@@ -16,18 +16,17 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE IF NOT EXISTS news_db;
+
 --
 -- Database: `news_db`
 --
-
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `news_feed`
 --
-
+USE news_db;
 CREATE TABLE `news_feed` (
-  `id` int NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `link` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `author` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
@@ -41,6 +40,7 @@ CREATE TABLE `news_feed` (
   `category` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `languages` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Indexes for dumped tables
