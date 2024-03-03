@@ -74,6 +74,8 @@ def summarise_text(text: str) -> str:
 
 if __name__ == "__main__":
 
+    num_articles = 10
+
     categories = ['top', 'sports', 'technology', 'business', 'science', 'entertainment', 'health', 'world', 'politics', 'environment', 'food']
 
     connection = MySQLdb.connect(host=os.getenv("DB_HOST"),
@@ -81,7 +83,7 @@ if __name__ == "__main__":
                              password=os.getenv("DB_PASS"),
                              database=os.getenv("DB_DATABASE"))
 
-    for category in categories:
+    for category in categories[:num_articles]:
         try:
             data = get_news_data(category, save=False)
 
@@ -105,7 +107,6 @@ if __name__ == "__main__":
                     cursor.execute(sql, data_to_insert)
                 connection.commit()
                 logging(f"Data added to MySQL successfully")
-
         finally:
             logging(f"All data added to MySQL. Closing connection.")
             connection.close()
