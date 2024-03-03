@@ -14,7 +14,7 @@ def format_date(date):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["localhost:5173"],
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
