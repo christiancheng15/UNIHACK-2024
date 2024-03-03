@@ -50,7 +50,7 @@ def get_fulltext(link: str) -> str:
 
     if response.status_code != 200:
         logging("Error fetching page")
-        return
+        return None
     
     text = fulltext(response.text)
 
@@ -74,7 +74,7 @@ def summarise_text(text: str) -> str:
 
 if __name__ == "__main__":
 
-    num_articles = 10
+    num_articles = 100
 
     categories = ['top', 'sports', 'technology', 'business', 'science', 'entertainment', 'health', 'world', 'politics', 'environment', 'food']
 
@@ -83,22 +83,29 @@ if __name__ == "__main__":
                              password=os.getenv("DB_PASS"),
                              database=os.getenv("DB_DATABASE"))
 
-    for category in categories[:num_articles]:
+    for category in categories:
         try:
-            data = get_news_data(category, save=False)
+            data = get_news_data(category="science", save=False)
 
             logging(f"Category: {category} | Total Results: {data["totalResults"]}")
             
             for result in data["results"]:
                 text = get_fulltext(result["link"])
+
+                if text == None:
+                    continue
+
                 logging(f"Text extracted successfully")
                 summarised_text = summarise_text(text)
                 logging(f"Text summarised successfully")
 
-                if len(result["creator"]) > 1:
-                    creator_string = ", ".join(result["creator"])
+                if result["creator"]:
+                    if len(result["creator"]) > 1:
+                        creator_string = ", ".join(result["creator"])
+                    else:
+                        creator_string = result["creator"][0]
                 else:
-                    creator_string = result["creator"][0]
+                    creator_string = ""
 
                 logging(f"Adding data to MySQL")
                 with connection.cursor() as cursor:
