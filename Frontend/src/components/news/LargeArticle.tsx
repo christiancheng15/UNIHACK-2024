@@ -16,13 +16,11 @@ export default function LargeArticle({
 }: ILargeArticle) {
     const api = useAPIContext()
 
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
-    const dateString = article.date.toLocaleDateString('en-US', options)
     const category = capitaliseFirstLetter(article.category)
 
     return (
         <div className="bg-[var(--backgroundColor4)] container2 !gap-4 !p-0 !items-start overflow-hidden w-full">
-            <p className="text-[var(--textColorLight)] font-semibold px-6 pt-2">{dateString} / {category}</p>
+            <p className="text-[var(--textColorLight)] font-semibold px-6 pt-2">{article?.date} / {category}</p>
             {
                 article?.image_url && (
                     <div className="h-[30vh] w-full">

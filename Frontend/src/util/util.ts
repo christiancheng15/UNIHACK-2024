@@ -3,12 +3,10 @@ export function getRandomIntInRange(min: number, max: number) {
 }
 
 export function calculateTimeBetweenDates(date1: Date, date2: Date = new Date()): number {
-    // To calculate the time difference of two dates
     let timeDifference = date2.getTime() - date1.getTime();
 
-    // To calculate the no. of days between two dates
     let daysDifference =
-        Math.round(timeDifference / (1000 * 3600 * 24));
+        Math.round(timeDifference / (1000 * 3600 * 24))
 
     return daysDifference
 }
@@ -20,7 +18,6 @@ export enum TimeDifferenceStringModes {
 
 interface ITimeDifferenceString {
     date: Date,
-    //mode: TimeDifferenceStringModes
 
 }
 
@@ -87,18 +84,15 @@ function isToday(date: number | Date): boolean {
     );
 }
 
-// Helper function to check if the given date is a specific day of the week
 function getDayOfWeek(date: number | Date): number {
     return (date instanceof Date) ? date.getDay() : -1;
 }
 
-// Helper function to get the day name based on the day index
 function getDayName(dayIndex: number): string {
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return daysOfWeek[dayIndex];
 }
 
-// Helper function to check if two dates are in the same week
 function isSameWeek(date1: Date, date2: Date): boolean {
     const firstDate = new Date(date1);
     const secondDate = new Date(date2);
@@ -127,7 +121,7 @@ export function isValueInRange({ low, high, value }: IIsValueInRange) {
     if (typeof value === 'string') {
         numericValue = value.length;
     } else {
-        numericValue = value;
+        numericValue = value
     }
 
     if (low == null) {
@@ -135,7 +129,7 @@ export function isValueInRange({ low, high, value }: IIsValueInRange) {
     }
 
     if (high == null) {
-        return numericValue >= (low as number);
+        return numericValue >= (low as number)
     }
 
     return numericValue >= (low as number) && numericValue <= (high as number);

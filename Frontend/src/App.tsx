@@ -5,7 +5,6 @@ import { ERROR_MESSAGE_STRINGS } from './util/constants'
 import { getRandomIntInRange } from './util/util'
 import { MdError } from 'react-icons/md'
 import Page404 from './pages/Page404'
-import PageHome from './pages/PageHome'
 import PageSettings from './pages/account/PageSettings'
 import PageExplore from './pages/PageExplore'
 import PageSavedArticles from './pages/PageSavedArticles'
@@ -13,7 +12,7 @@ import PageSavedArticles from './pages/PageSavedArticles'
 function App() {
 
 
-  const { modal0, modal1, modal2, isMobile, errors, clearErrors } = useGlobalContext()
+  const { modal0, modal1, modal2, errors, clearErrors } = useGlobalContext()
 
 
   function errorText(): string {

@@ -4,7 +4,7 @@ export default interface IArticle {
     link: string,
     author?: string | undefined,
     summarised_text: string[],
-    date: Date,
+    date: string,
     image_url: string,
     source_id: number,
     source_url: string,

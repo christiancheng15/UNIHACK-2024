@@ -13,7 +13,6 @@ export default function PageSavedArticles() {
 
     return (
         <TemplatePage
-            height={"100%"}
             title={"Saved Articles"}
         >
             <div className="h-full w-full">

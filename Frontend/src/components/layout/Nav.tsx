@@ -1,11 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../contexts/useGlobalContext";
-import { FaBars, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa6";
+import { FaBars } from "react-icons/fa6";
 import { CONSTANTS } from "../../util/constants";
 import Button, { BUTTON_TYPES } from "../input/Button";
 import BaseSideMenu from "../general/BaseSideMenu";
-import { Logo } from "../../assets";
-import Image from "../general/Image";
 import { NAV_ITEMS } from "../../navigation/navigation";
 import INavItem from "../../navigation/INavItem";
 import { MdPerson } from "react-icons/md";
@@ -47,7 +45,7 @@ export default function Nav() {
     } else {
         return (
             <nav className="verticalContainer !items-start">
-                <Link className="p-6 text-5xl italic text-[var(--textColor)]" to='/'>
+                <Link className="p-6 text-5xl font-bold italic text-[var(--textColor)]" to='/'>
                     Gist
 
                 </Link>

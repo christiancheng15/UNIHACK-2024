@@ -3,7 +3,7 @@ import IArticle from "../../models/IArticle";
 import { capitaliseFirstLetter } from "../../util/util";
 import Image from "../general/Image";
 import Button, { BUTTON_TYPES } from "../input/Button";
-import { MdOpenInNew, MdShare, MdStar, MdThumbUp } from "react-icons/md";
+import { MdShare, MdStar, MdThumbUp } from "react-icons/md";
 import { useAPIContext } from "../../contexts/useAPIContext";
 
 
@@ -16,13 +16,11 @@ export default function RowArticle({
 }: IRowArticle) {
     const api = useAPIContext()
 
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
-    const dateString = article.date.toLocaleDateString('en-US', options)
     const category = capitaliseFirstLetter(article.category)
 
     return (
         <div className="bg-[var(--backgroundColor4)] container2 !gap-4 !p-0 !items-start overflow-hidden w-full">
-            <p className="text-[var(--textColorLight)] font-semibold px-6 pt-2">{dateString} / {category}</p>
+            <p className="text-[var(--textColorLight)] font-semibold px-6 pt-2">{article?.date} / {category}</p>
 
             <div className="horizontalContainer px-4">
                 <div className="h-16 w-16">

@@ -128,10 +128,6 @@ export function APIProvider({ children }: APIProviderProps) {
         })
 
         if (res) {
-            for (let i = 0; i < res.length; i++) {
-                res[i].date = new Date(res[i].date)
-
-            }
             addArticles(res)
         }
 
